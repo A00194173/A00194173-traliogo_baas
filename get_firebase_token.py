@@ -9,14 +9,15 @@ from firebase_admin import auth, credentials
 import sys
 import os
 
-def get_custom_token(project_id: str, user_id: str = "test-user-123"):
+def get_custom_token(project_id: str, user_id: str = "test-user-004"):
     """
     Genera un custom token para el usuario especificado
     """
     try:
         # Inicializar Firebase Admin (usa Application Default Credentials)
         if not firebase_admin._apps:
-            firebase_admin.initialize_app(options={'projectId': project_id})
+            cred = credentials.Certificate("firebase-service-account.json")
+            firebase_admin.initialize_app(cred)
         
         # Crear custom token
         custom_token = auth.create_custom_token(user_id)
@@ -35,7 +36,7 @@ def get_custom_token(project_id: str, user_id: str = "test-user-123"):
 
 def main():
     project_id = os.getenv('GCLOUD_PROJECT', 'trailogo-dev')
-    user_id = sys.argv[1] if len(sys.argv) > 1 else "test-user-123"
+    user_id = sys.argv[1] if len(sys.argv) > 1 else "test-user-004"
     
     print(f"Generando token para proyecto: {project_id}")
     print(f"Usuario: {user_id}")
