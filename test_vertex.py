@@ -26,7 +26,7 @@ def main():
         print(f"Modelo {model_name} cargado")
         
         # Generar contenido
-        prompt = "¿Qué es un perro boxer?"
+        prompt = "¿Qué es un perro brder collie?"
         print(f"Enviando prompt: {prompt}")
         
         response = model.generate_content(prompt)
